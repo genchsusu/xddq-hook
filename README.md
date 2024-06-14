@@ -17,3 +17,5 @@ static function OnWebSocketMessage(oMsg: WebSocketMessage) {
         FiddlerApplication.Log.LogString("转发错误: " + e.toString());
     }
 }
+
+https://www.bilibili.com/opus/942785956421828629
