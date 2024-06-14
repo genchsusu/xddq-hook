@@ -1,0 +1,15 @@
+{
+  "name": "hook",
+  "version": "1.0.0",
+  "main": "app.js",
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "long": "^5.2.3",
+    "protobufjs": "^7.3.0",
+    "winston": "^3.13.0"
+  }
+}
