@@ -1,6 +1,7 @@
 
 原理就是搭建一套tcp的Bytes解析服务器, 抓包获取Proto文件, 小程序的流量由Fiddler管理, FiddlerScript把劫持到的流量转发给自己的Bytes解析服务.
 
+```
 static function OnWebSocketMessage(oMsg: WebSocketMessage) {
     var direction = oMsg.IsOutbound ? "Client" : "Server";
     // FiddlerApplication.Log.LogString(direction + "消息: " + oMsg.PayloadAsString());
@@ -17,5 +18,6 @@ static function OnWebSocketMessage(oMsg: WebSocketMessage) {
         FiddlerApplication.Log.LogString("转发错误: " + e.toString());
     }
 }
+```
 
 https://www.bilibili.com/opus/942785956421828629
