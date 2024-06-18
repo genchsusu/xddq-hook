@@ -29,21 +29,16 @@ class ProtobufMgr {
         this.initialized = true; // Set the flag to true
         
         const basePath = resolvePath('../models/json');
-        
-        // 读取 CityMsgInfo
-        const cityMsgInfoPath = path.join(basePath, 'CityMsgInfo');
-        const cityMsgInfoRes = await fs.readFile(cityMsgInfoPath, 'utf-8');
+
+        // 读取Json文件
+        const [cityMsgInfoRes, cmdListRes, resvCmdListRes] = await Promise.all([
+            fs.readFile(path.join(basePath, 'CityMsgInfo'), 'utf-8'),
+            fs.readFile(path.join(basePath, 'cmdList.json'), 'utf-8'),
+            fs.readFile(path.join(basePath, 'resvCmdList.json'), 'utf-8')
+        ]);
         const msgInfo = JSON.parse(cityMsgInfoRes);
         this.msgInfoDict = msgInfo;
-
-        // 读取 cmdList.json
-        const cmdListPath = path.join(basePath, 'cmdList.json');
-        const cmdListRes = await fs.readFile(cmdListPath, 'utf-8');
         this.cmdList = JSON.parse(cmdListRes);
-
-        // 读取 resvCmdList.json
-        const resvCmdListPath = path.join(basePath, 'resvCmdList.json');
-        const resvCmdListRes = await fs.readFile(resvCmdListPath, 'utf-8');
         this.resvCmdList = JSON.parse(resvCmdListRes);
 
         // 初始化 msgInfoDict
@@ -143,9 +138,7 @@ class ProtobufMgr {
             "GodDemonBattle",
         ]
         
-        for (const protoName of protoFiles) {
-            await this.loadParseAllCmdMsg(protoName);
-        }
+        await Promise.all(protoFiles.map(protoName => this.loadParseAllCmdMsg(protoName)));
     }
 
     async loadParseAllCmdMsg(protoName) {

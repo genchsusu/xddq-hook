@@ -31,6 +31,7 @@ import "Spirit";
         optional PupilDetailDataMsg pupilDetailData = 14; 
         optional int32 equipAppearanceId = 15; 
         repeated EquipUniverseSkillMsg equipUniverseSkillMsg = 16; 
+        optional int32 universeLevel = 17;  
     }
     message PupilDetailDataMsg {
         repeated AttributeDataMsg baseAttr = 1;     
