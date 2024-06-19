@@ -13,27 +13,30 @@ export async function parse(hexString, isRequest = true) {
 
   stream.readShort(); // 读取并跳过消息头部的短整型
   const n = stream.readInt(); // 读取消息长度
-  const msgId = stream.readInt(); // 读取消息ID
-  const playerId = stream.readLong(); // 读取玩家ID
-
-  logger.debug(`msgId: ${msgId}`);
-  logger.debug(`playerId: ${playerId.toString()}`);
-  const s = await protobufMgr.getMsg(msgId, isRequest);
-  if (!s) {
-    logger.info(`Unknown message type for msgId: ${msgId}`);
+  if (n>0) {
+    const msgId = stream.readInt(); // 读取消息ID
+    const playerId = stream.readLong(); // 读取玩家ID
+  
+    logger.debug(`msgId: ${msgId}`);
+    logger.debug(`playerId: ${playerId}`);
+    const s = await protobufMgr.getMsg(msgId, isRequest);
+    if (!s) {
+      logger.info(`Unknown message type for msgId: ${msgId}`);
+    }
+  
+    const l = new Uint8Array(n - 18);
+    l.set(hexBytes.subarray(18, n));
+  
+    let body = {};
+    if (s) {
+      logger.debug(`Retrieved message type: ${s.name}`);
+      body = s.decode(l);
+      logger.debug(`body: ${JSON.stringify(body, null, 2)}`);
+    }
+  
+    return { msgId, playerId, body };
   }
-
-  const l = new Uint8Array(n - 18);
-  l.set(hexBytes.subarray(18, n));
-
-  let body = {};
-  if (s) {
-    logger.debug(`Retrieved message type: ${s.name}`);
-    body = s.decode(l);
-    logger.debug(`body: ${JSON.stringify(body, null, 2)}`);
-  }
-
-  return { msgId, playerId, body };
+  return null;
 }
 
 export async function create(playerId, protocol, msgBody) {
