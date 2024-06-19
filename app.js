@@ -40,7 +40,7 @@ const processMessages = async () => {
                             result = await parse(content, false);
                         }
 
-                        const filteredMsgIds = [20003, 3, 13, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 131];
+                        const filteredMsgIds = [20003, 3, 13, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 131, 132];
                         if (result && !filteredMsgIds.includes(result.msgId)) {
                             logger.info(`[${direction}] ${result.msgId} \n${JSON.stringify(result.body, null, 2)}`);
                         }

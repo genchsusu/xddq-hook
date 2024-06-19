@@ -16,37 +16,34 @@ export async function parse(hexString, isRequest = true) {
   const msgId = stream.readInt(); // 读取消息ID
   const playerId = stream.readLong(); // 读取玩家ID
 
+  logger.debug(`msgId: ${msgId}`);
+  logger.debug(`playerId: ${playerId.toString()}`);
   const s = await protobufMgr.getMsg(msgId, isRequest);
   if (!s) {
-    logger.debug(`Unknown message type for msgId: ${msgId}`);
-    return null;
+    logger.info(`Unknown message type for msgId: ${msgId}`);
   }
-
-  logger.debug('Retrieved message type:', s.name);
 
   const l = new Uint8Array(n - 18);
   l.set(hexBytes.subarray(18, n));
 
-  let body = null;
+  let body = {};
   if (s) {
+    logger.debug(`Retrieved message type: ${s.name}`);
     body = s.decode(l);
-    logger.debug('body:', JSON.stringify(body, null, 2));
+    logger.debug(`body: ${JSON.stringify(body, null, 2)}`);
   }
 
-  logger.debug('msgId:', msgId);
-  logger.debug('playerId:', playerId.toString());
   return { msgId, playerId, body };
 }
 
 export async function create(playerId, protocol, msgBody) {
   logger.debug(`debug ${protocol} ${JSON.stringify(msgBody, null, 2)}`);
   const s = await protobufMgr.getMsg(protocol, true);
-  if (!s) {
-    logger.error(`Unknown message type for protocol: ${protocol}`);
-    return null;
+
+  const body = null;
+  if (s) {
+    body = s.encode(msgBody).finish();
   }
-  
-  const body = s.encode(msgBody).finish();
   
   const stream = new Stream();
   stream.init(protocol, +playerId, 18 + 256, true);
@@ -55,7 +52,9 @@ export async function create(playerId, protocol, msgBody) {
   stream.writeInt(protocol);
   stream.writeLong(playerId);
 
-  stream.writeBytes(body, 18);
+  if (body) {
+    stream.writeBytes(body, 18);
+  }
   stream.writeInt(stream.offset, 2);
 
   const t = new Uint8Array(stream.offset);
@@ -64,7 +63,7 @@ export async function create(playerId, protocol, msgBody) {
   stream.streamsize = stream.offset;
 
   const hexString = Buffer.from(stream.buff).toString('hex').toUpperCase();
-  logger.debug('Final stream buffer:', hexString);
+  logger.debug(`Final stream buffer: ${hexString}`);
 
   return hexString.match(/.{1,2}/g).join('-');
 }

@@ -172,12 +172,15 @@ class ProtobufMgr {
         }
     }
 
-    getMsg(t, e) {
+    getMsg(t, e, i = false) {
         const n = e ? this.cmdList[t] : this.resvCmdList[t];
         if (n) {
             const method = e ? n.cmMethod : n.smMethod;
+            if (e && (method === undefined || method === -1)) {
+                return null;
+            }
             const msgClass = this.messages[`com.yq.msg.${method}`];
-            return msgClass;
+            return i ? msgClass : new msgClass();
         }
         return null;
     }
