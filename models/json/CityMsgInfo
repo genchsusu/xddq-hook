@@ -4406,5 +4406,167 @@
             "comment": "活动表配置",
             "byteDecode": "GodDemonBattleConfig"
         }
+    ],
+    "Pupil": [
+        {
+            "key": "S_PUPIL_ENTER",
+            "comment": "进入门徒系统",
+            "cmMethod": "EnterPupilSystemReq",
+            "smMethod": "EnterPupilSystemResp"
+        },
+        {
+            "key": "S_PUPIL_TRAIN",
+            "comment": "门徒培养",
+            "cmMethod": "PupilTrainReq",
+            "smMethod": "PupilTrainResp"
+        },
+        {
+            "key": "S_PUPIL_TRAIN_TIMES_RECOVER",
+            "comment": "恢复培养次数",
+            "cmMethod": "PupilSiteTrainTimesRecoverReq",
+            "smMethod": "PupilSiteTrainTimesRecoverResp"
+        },
+        {
+            "key": "S_PUPIL_RECRUIT",
+            "comment": "招收门徒",
+            "cmMethod": "PupilRecruitReq",
+            "smMethod": "PupilRecruitResp"
+        },
+        {
+            "key": "S_PUPIL_GRADUATE",
+            "comment": "门徒出师",
+            "cmMethod": "PupilGraduateReq",
+            "smMethod": "PupilGraduateResp"
+        },
+        {
+            "key": "S_PUPIL_GET_GRADUATE_LIST",
+            "comment": "获取出师门徒列表",
+            "cmMethod": "PupilGetGraduatedListReq",
+            "smMethod": "PupilGetGraduatedListResp"
+        },
+        {
+            "key": "S_PUPIL_GET_FIGHT_LIST",
+            "comment": "获取上阵列表",
+            "cmMethod": "PupilGetFightListReq",
+            "smMethod": "PupilGetFightListResp"
+        },
+        {
+            "key": "S_PUPIL_FIGHT_ON",
+            "comment": "门徒上阵",
+            "cmMethod": "PupilFightOnReq",
+            "smMethod": "PupilFightOnResp"
+        },
+        {
+            "key": "S_PUPIL_GET_SECT_INFO",
+            "comment": "获取门派统计信息",
+            "cmMethod": "PupilGetSectInfoReq",
+            "smMethod": "PupilGetSectInfoResp"
+        },
+        {
+            "comment": "PupilRankList解析",
+            "byteDecode": "PupilRankList"
+        },
+        {
+            "key": "S_PUPIL_GET_AD_REWARD",
+            "comment": "领取广告奖励",
+            "cmMethod": "PupilGetAdRewardReq",
+            "smMethod": "PupilGetAdRewardResp"
+        },
+        {
+            "comment": "PupilDataMsg解析",
+            "byteDecode": "PupilDataMsg"
+        },
+        {
+            "key": "S_PUPIL_LOCK",
+            "comment": "锁定弟子",
+            "cmMethod": "PupilLockReq",
+            "smMethod": "PupilLockResp"
+        }
+    ],
+    "Marriage": [
+        {
+            "key": "S_PUPIL_MARRIAGE_USER_DATA_SYNC",
+            "comment": "结义用户数据同步",
+            "smMethod": "MarriageUserDataMsgSync"
+        },
+        {
+            "key": "S_PUPIL_MARRIAGE_APPOINT_APPLY_SYNC",
+            "comment": "同步其他玩家发起的结义请求（别的玩家指定你结义的列表）",
+            "smMethod": "MarriageGetAppointApplySync"
+        },
+        {
+            "key": "S_PUPIL_MARRIAGE_GRADUATED_UN_MARRIAGE_LIST_SYNC",
+            "comment": "同步出师未结义的门徒列表",
+            "smMethod": "PupilGraduatedUnMarryListSync"
+        },
+        {
+            "key": "S_PUPIL_MARRIAGE_REFUSE_NOTIFY_SYNC",
+            "comment": "拒绝结义通知同步",
+            "smMethod": "MarriageRefuseNotifyMsgSync"
+        },
+        {
+            "key": "S_PUPIL_MARRIAGE_GRADUATED_UN_MARRIAGE_LIST",
+            "comment": "获得出师未结义的门徒列表",
+            "cmMethod": "PupilGraduatedUnMarryListReq",
+            "smMethod": "PupilGraduatedUnMarryListResp"
+        },
+        {
+            "key": "S_PUPIL_MARRIAGE_RECORD_LIST",
+            "comment": "结义记录列表",
+            "cmMethod": "MarriageRecordListReq",
+            "smMethod": "MarriageRecordListResp"
+        },
+        {
+            "key": "S_PUPIL_MARRIAGE_GET_SERVER_APPLY",
+            "comment": "获取全服结义请求列表(包括妖盟)",
+            "cmMethod": "MarriageGetServerApplyReq",
+            "smMethod": "MarriageGetServerApplyResp"
+        },
+        {
+            "key": "S_PUPIL_MARRIAGE_RECOMMEND_PLAYER",
+            "comment": "指定结义推荐玩家请求",
+            "cmMethod": "MarriageRecommendPlayerReq",
+            "smMethod": "MarriageRecommendPlayerResp"
+        },
+        {
+            "key": "S_PUPIL_MARRIAGE_GET_APPOINT_APPLY",
+            "comment": "获取其他玩家发起的结义请求（别的玩家指定你结义的列表）",
+            "cmMethod": "MarriageGetAppointApplyReq",
+            "smMethod": "MarriageGetAppointApplyResp"
+        },
+        {
+            "key": "S_PUPIL_MARRIAGE_APPLY_DEAL",
+            "comment": "处理结义请求",
+            "cmMethod": "MarriageApplyDealReq",
+            "smMethod": "MarriageApplyDealResp"
+        },
+        {
+            "key": "S_PUPIL_MARRIAGE_APPLY_PUBLISH",
+            "comment": "发布结义请求",
+            "cmMethod": "MarriageApplyPublishReq",
+            "smMethod": "MarriageApplyPublishResp"
+        },
+        {
+            "key": "S_PUPIL_MARRIAGE_APPLY_CANCEL",
+            "comment": "取消结义请求",
+            "cmMethod": "MarriageApplyCancelReq",
+            "smMethod": "MarriageApplyCancelResp"
+        },
+        {
+            "key": "S_PUPIL_MARRIAGE_REFRESH_SERVER_APPLY",
+            "comment": "刷新全服结义列表请求",
+            "cmMethod": "MarriageRefreshServerApplyReq",
+            "smMethod": "MarriageRefreshServerApplyResp"
+        },
+        {
+            "key": "S_PUPIL_MARRIAGE_SET_APPOINT",
+            "comment": "设置是否接受指向结义请求",
+            "cmMethod": "MarriageSetAppointReq",
+            "smMethod": "MarriageSetAppointResp"
+        },
+        {
+            "comment": "MarriageRecordTempMsg解析",
+            "byteDecode": "MarriageRecordTempMsg"
+        }
     ]
 }

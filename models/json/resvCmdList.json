@@ -13102,16 +13102,36 @@
     null,
     null,
     null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
+    {
+        "smMethod": "CityMsg.EnterPupilSystemResp"
+    },
+    {
+        "smMethod": "CityMsg.PupilTrainResp"
+    },
+    {
+        "smMethod": "CityMsg.PupilSiteTrainTimesRecoverResp"
+    },
+    {
+        "smMethod": "CityMsg.SectLvUpResp"
+    },
+    {
+        "smMethod": "CityMsg.PupilRecruitResp"
+    },
+    {
+        "smMethod": "CityMsg.PupilGraduateResp"
+    },
+    {
+        "smMethod": "CityMsg.PupilGetGraduatedListResp"
+    },
+    {
+        "smMethod": "CityMsg.PupilGetFightListResp"
+    },
+    {
+        "smMethod": "CityMsg.PupilFightOnResp"
+    },
+    {
+        "smMethod": "CityMsg.PupilGetSectInfoResp"
+    },
     {
         "smMethod": "CityMsg.SearchPlayerResp"
     },
@@ -13119,11 +13139,12 @@
     {
         "smMethod": "CityMsg.PupilSystemLoginSync"
     },
-    null,
-    null,
-    null,
-    null,
-    null,
+    {
+        "smMethod": "CityMsg.PupilGetAdRewardResp"
+    },
+    {
+        "smMethod": "CityMsg.PupilLockResp"
+    },
     null,
     null,
     null,
@@ -13159,19 +13180,50 @@
     null,
     null,
     {
+        "smMethod": "CityMsg.MarriageUserDataMsgSync"
+    },
+    {
+        "smMethod": "CityMsg.MarriageGetAppointApplySync"
+    },
+    {
+        "smMethod": "CityMsg.PupilGraduatedUnMarryListSync"
+    },
+    {
         "smMethod": "CityMsg.MarriageRecordTempSync"
     },
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
+    {
+        "smMethod": "CityMsg.MarriageRefuseNotifyMsgSync"
+    },
+    {
+        "smMethod": "CityMsg.PupilGraduatedUnMarryListResp"
+    },
+    {
+        "smMethod": "CityMsg.MarriageRecordListResp"
+    },
+    {
+        "smMethod": "CityMsg.MarriageGetServerApplyResp"
+    },
+    {
+        "smMethod": "CityMsg.MarriageRecommendPlayerResp"
+    },
+    {
+        "smMethod": "CityMsg.MarriageGetAppointApplyResp"
+    },
+    {
+        "smMethod": "CityMsg.MarriageApplyDealResp"
+    },
+    {
+        "smMethod": "CityMsg.MarriageApplyPublishResp"
+    },
+    {
+        "smMethod": "CityMsg.MarriageApplyCancelResp"
+    },
+    {
+        "smMethod": "CityMsg.MarriageRefreshServerApplyResp"
+    },
+    {
+        "smMethod": "CityMsg.MarriageSetAppointResp"
+    },
     {
         "smMethod": "CityMsg.MarriageGetAppointApplyTimeSync"
     },

@@ -45,22 +45,26 @@
         "byteDecode": "CityMsg.BossSpecialSkillAction"
     },
     null,
-    null,
+    {
+        "comment": "PupilRankList解析",
+        "smMsgId": 10,
+        "byteDecode": "CityMsg.PupilRankList"
+    },
     {
         "comment": "问鼎八荒AskDingConfigSyncMsg解析",
         "smMsgId": 11,
         "byteDecode": "CityMsg.AskDingConfigSyncMsg"
     },
     {
-        "comment": "WorldMessageExtraData解析",
+        "comment": "PupilDataMsg解析",
         "smMsgId": 12,
-        "byteDecode": "CityMsg.WorldMessageExtraData"
+        "byteDecode": "CityMsg.PupilDataMsg"
     },
     null,
     {
-        "comment": "问道特有配置解析",
+        "comment": "MarriageRecordTempMsg解析",
         "smMsgId": 14,
-        "byteDecode": "CityMsg.AskWayConfigSyncMsg"
+        "byteDecode": "CityMsg.MarriageRecordTempMsg"
     },
     {
         "comment": "瑞兽赐福 数据同步 解析",
@@ -214997,16 +215001,61 @@
     null,
     null,
     null,
+    {
+        "comment": "进入门徒系统",
+        "smMsgId": 11801,
+        "cmMethod": "CityMsg.EnterPupilSystemReq",
+        "smMethod": "CityMsg.EnterPupilSystemResp"
+    },
+    {
+        "comment": "门徒培养",
+        "smMsgId": 11802,
+        "cmMethod": "CityMsg.PupilTrainReq",
+        "smMethod": "CityMsg.PupilTrainResp"
+    },
+    {
+        "comment": "恢复培养次数",
+        "smMsgId": 11803,
+        "cmMethod": "CityMsg.PupilSiteTrainTimesRecoverReq",
+        "smMethod": "CityMsg.PupilSiteTrainTimesRecoverResp"
+    },
     null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
+    {
+        "comment": "招收门徒",
+        "smMsgId": 11805,
+        "cmMethod": "CityMsg.PupilRecruitReq",
+        "smMethod": "CityMsg.PupilRecruitResp"
+    },
+    {
+        "comment": "门徒出师",
+        "smMsgId": 11806,
+        "cmMethod": "CityMsg.PupilGraduateReq",
+        "smMethod": "CityMsg.PupilGraduateResp"
+    },
+    {
+        "comment": "获取出师门徒列表",
+        "smMsgId": 11807,
+        "cmMethod": "CityMsg.PupilGetGraduatedListReq",
+        "smMethod": "CityMsg.PupilGetGraduatedListResp"
+    },
+    {
+        "comment": "获取上阵列表",
+        "smMsgId": 11808,
+        "cmMethod": "CityMsg.PupilGetFightListReq",
+        "smMethod": "CityMsg.PupilGetFightListResp"
+    },
+    {
+        "comment": "门徒上阵",
+        "smMsgId": 11809,
+        "cmMethod": "CityMsg.PupilFightOnReq",
+        "smMethod": "CityMsg.PupilFightOnResp"
+    },
+    {
+        "comment": "获取门派统计信息",
+        "smMsgId": 11810,
+        "cmMethod": "CityMsg.PupilGetSectInfoReq",
+        "smMethod": "CityMsg.PupilGetSectInfoResp"
+    },
     {
         "comment": "搜索玩家",
         "smMsgId": 11811,
@@ -215019,11 +215068,18 @@
         "smMsgId": 11813,
         "smMethod": "CityMsg.PupilSystemLoginSync"
     },
-    null,
-    null,
-    null,
-    null,
-    null,
+    {
+        "comment": "领取广告奖励",
+        "smMsgId": 11814,
+        "cmMethod": "CityMsg.PupilGetAdRewardReq",
+        "smMethod": "CityMsg.PupilGetAdRewardResp"
+    },
+    {
+        "comment": "锁定弟子",
+        "smMsgId": 11815,
+        "cmMethod": "CityMsg.PupilLockReq",
+        "smMethod": "CityMsg.PupilLockResp"
+    },
     null,
     null,
     null,
@@ -215059,21 +215115,90 @@
     null,
     null,
     {
+        "comment": "结义用户数据同步",
+        "smMsgId": 11850,
+        "smMethod": "CityMsg.MarriageUserDataMsgSync"
+    },
+    {
+        "comment": "同步其他玩家发起的结义请求（别的玩家指定你结义的列表）",
+        "smMsgId": 11851,
+        "smMethod": "CityMsg.MarriageGetAppointApplySync"
+    },
+    {
+        "comment": "同步出师未结义的门徒列表",
+        "smMsgId": 11852,
+        "smMethod": "CityMsg.PupilGraduatedUnMarryListSync"
+    },
+    {
         "comment": "结义记录数据同步",
         "smMsgId": 11853,
         "smMethod": "CityMsg.MarriageRecordTempSync"
     },
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
+    {
+        "comment": "拒绝结义通知同步",
+        "smMsgId": 11854,
+        "smMethod": "CityMsg.MarriageRefuseNotifyMsgSync"
+    },
+    {
+        "comment": "获得出师未结义的门徒列表",
+        "smMsgId": 11855,
+        "cmMethod": "CityMsg.PupilGraduatedUnMarryListReq",
+        "smMethod": "CityMsg.PupilGraduatedUnMarryListResp"
+    },
+    {
+        "comment": "结义记录列表",
+        "smMsgId": 11856,
+        "cmMethod": "CityMsg.MarriageRecordListReq",
+        "smMethod": "CityMsg.MarriageRecordListResp"
+    },
+    {
+        "comment": "获取全服结义请求列表(包括妖盟)",
+        "smMsgId": 11857,
+        "cmMethod": "CityMsg.MarriageGetServerApplyReq",
+        "smMethod": "CityMsg.MarriageGetServerApplyResp"
+    },
+    {
+        "comment": "指定结义推荐玩家请求",
+        "smMsgId": 11858,
+        "cmMethod": "CityMsg.MarriageRecommendPlayerReq",
+        "smMethod": "CityMsg.MarriageRecommendPlayerResp"
+    },
+    {
+        "comment": "获取其他玩家发起的结义请求（别的玩家指定你结义的列表）",
+        "smMsgId": 11859,
+        "cmMethod": "CityMsg.MarriageGetAppointApplyReq",
+        "smMethod": "CityMsg.MarriageGetAppointApplyResp"
+    },
+    {
+        "comment": "处理结义请求",
+        "smMsgId": 11860,
+        "cmMethod": "CityMsg.MarriageApplyDealReq",
+        "smMethod": "CityMsg.MarriageApplyDealResp"
+    },
+    {
+        "comment": "发布结义请求",
+        "smMsgId": 11861,
+        "cmMethod": "CityMsg.MarriageApplyPublishReq",
+        "smMethod": "CityMsg.MarriageApplyPublishResp"
+    },
+    {
+        "comment": "取消结义请求",
+        "smMsgId": 11862,
+        "cmMethod": "CityMsg.MarriageApplyCancelReq",
+        "smMethod": "CityMsg.MarriageApplyCancelResp"
+    },
+    {
+        "comment": "刷新全服结义列表请求",
+        "smMsgId": 11863,
+        "cmMethod": "CityMsg.MarriageRefreshServerApplyReq",
+        "smMethod": "CityMsg.MarriageRefreshServerApplyResp"
+    },
+    {
+        "comment": "设置是否接受指向结义请求",
+        "smMsgId": 11864,
+        "cmMethod": "CityMsg.MarriageSetAppointReq",
+        "smMethod": "CityMsg.MarriageSetAppointResp"
+    },
     {
         "comment": "同步其他玩家发起的结义请求时间",
         "smMsgId": 11865,
