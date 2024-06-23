@@ -2,7 +2,10 @@ import winston from 'winston';
 import fs from 'fs';
 import path from 'path';
 
-const logDir = path.join(process.cwd(), 'logs');
+const resolvePath = (...segments: string[]) => path.resolve(__dirname, ...segments);
+
+const logDir = resolvePath('../../logs');
+
 if (!fs.existsSync(logDir)) {
     fs.mkdirSync(logDir);
 }
@@ -11,14 +14,14 @@ const logFileName = path.join(
     `${new Date().toISOString().slice(0, 10).replace(/-/g, '_')}.log`,
 );
 
-const customLevels = {
+const customLevels: winston.config.AbstractConfigSetLevels = {
     error: 0,
     warn: 1,
     info: 2,
     debug: 3,
 };
 
-const customColors = {
+const customColors: winston.config.AbstractConfigSetColors = {
     error: 'red',
     warn: 'yellow',
     info: 'green',

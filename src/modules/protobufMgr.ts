@@ -1,40 +1,57 @@
-import fs from 'fs/promises';
-import protobuf from 'protobufjs';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import fs from "fs/promises";
+import protobuf from "protobufjs";
+import path from "path";
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const resolvePath = (...segments) => path.resolve(__dirname, ...segments);
+const resolvePath = (...segments: string[]) => path.resolve(__dirname, ...segments);
+
+interface MsgInfo {
+    [key: string]: any;
+}
+
+interface CmdList {
+    [key: string]: any;
+}
+
+interface Messages {
+    [key: string]: protobuf.Type;
+}
 
 class ProtobufMgr {
-    constructor() {
-        this.cmdList = [];
-        this.resvCmdList = [];
+    private static _instance: ProtobufMgr;
+    private cmdList: CmdList;
+    private resvCmdList: CmdList;
+    private messages: Messages;
+    private msgInfoDict: MsgInfo;
+    private initialized: boolean;
+
+    private constructor() {
+        this.cmdList = {};
+        this.resvCmdList = {};
         this.messages = {};
         this.msgInfoDict = {};
         this.initialized = false;
     }
 
-    static get instance() {
+    static get instance(): ProtobufMgr {
         if (!this._instance) {
             this._instance = new ProtobufMgr();
         }
         return this._instance;
     }
 
-    async initAllMsgData() {
+    async initAllMsgData(): Promise<void> {
         if (this.initialized) {
             return; // Exit if already initialized
         }
         this.initialized = true; // Set the flag to true
-        
-        const basePath = resolvePath('../models/json');
+
+        const basePath = resolvePath("../models/json");
 
         // 读取Json文件
         const [cityMsgInfoRes, cmdListRes, resvCmdListRes] = await Promise.all([
-            fs.readFile(path.join(basePath, 'CityMsgInfo'), 'utf-8'),
-            fs.readFile(path.join(basePath, 'cmdList.json'), 'utf-8'),
-            fs.readFile(path.join(basePath, 'resvCmdList.json'), 'utf-8')
+            fs.readFile(path.join(basePath, "CityMsgInfo"), "utf-8"),
+            fs.readFile(path.join(basePath, "cmdList.json"), "utf-8"),
+            fs.readFile(path.join(basePath, "resvCmdList.json"), "utf-8"),
         ]);
         const msgInfo = JSON.parse(cityMsgInfoRes);
         this.msgInfoDict = msgInfo;
@@ -44,7 +61,7 @@ class ProtobufMgr {
         // 初始化 msgInfoDict
         for (const key in msgInfo) {
             const cmds = msgInfo[key];
-            cmds.forEach(cmd => {
+            cmds.forEach((cmd: any) => {
                 const protocolKey = cmd.key;
                 this.msgInfoDict[key][protocolKey] = this.cmdList[protocolKey];
             });
@@ -136,15 +153,15 @@ class ProtobufMgr {
             "FestivalCelebrations",
             "PetKernel",
             "GodDemonBattle",
-        ]
-        
-        await Promise.all(protoFiles.map(protoName => this.loadParseAllCmdMsg(protoName)));
+        ];
+
+        await Promise.all(protoFiles.map((protoName) => this.loadParseAllCmdMsg(protoName)));
     }
 
-    async loadParseAllCmdMsg(protoName) {
+    async loadParseAllCmdMsg(protoName: string): Promise<void> {
         const root = await protobuf.load(resolvePath(`../models/protobuf/${protoName}`));
         const msgInfo = this.msgInfoDict[protoName];
-        
+
         for (const key in msgInfo) {
             if (msgInfo.hasOwnProperty(key)) {
                 const msg = msgInfo[key];
@@ -161,7 +178,7 @@ class ProtobufMgr {
                     this.messages[smMethod] = root.lookupType(smMethod);
                     this.resvCmdList[msg.smMsgId] = {
                         smMethod: msg.smMethod,
-                        fSmMethod: msg.fSmMethod
+                        fSmMethod: msg.fSmMethod,
                     };
                 }
                 if (msg.byteDecode) {
@@ -172,7 +189,7 @@ class ProtobufMgr {
         }
     }
 
-    getMsg(t, e) {
+    getMsg(t: any, e: boolean): protobuf.Type | null {
         const n = e ? this.cmdList[t] : this.resvCmdList[t];
         if (n) {
             const method = e ? n.cmMethod : n.smMethod;
@@ -180,7 +197,7 @@ class ProtobufMgr {
                 return null;
             }
             const msgClass = this.messages[`com.yq.msg.${method}`];
-            return msgClass;
+            return msgClass || null;
         }
         return null;
     }

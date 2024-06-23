@@ -1,0 +1,29 @@
+{
+    "compilerOptions": {
+        "target": "esnext",                     // 将代码编译为 ES2017 标准
+        "lib": ["esnext", "esnext.asynciterable"], // 包含 ES2017 和异步迭代器的库文件
+        "typeRoots": ["./node_modules/@types", "./src/types"], // 指定类型定义文件的根目录
+        "allowSyntheticDefaultImports": true,   // 允许合成默认导入
+        "experimentalDecorators": true,         // 启用实验性的装饰器特性
+        "emitDecoratorMetadata": true,          // 发出装饰器元数据
+        "forceConsistentCasingInFileNames": true, // 强制文件名大小写一致
+        "moduleResolution": "node",             // 使用 Node 模块解析策略
+        "module": "CommonJS",                     // 使用 CommonJS 模块系统
+        // "strict": true,                         // 启用所有严格类型检查选项
+        "pretty": true,                         // 美化编译器输出
+        "sourceMap": true,                      // 生成 sourceMap 文件，便于调试
+        "rootDir": "./",                        // 设置项目的根目录为当前目录
+        "outDir": "./build",                    // 指定编译后的输出目录为 `build`
+        "allowJs": true,                        // 允许编译 JavaScript 文件
+        "noEmit": false,                        // 允许发出编译输出
+        "esModuleInterop": true,                // 启用 ES 模块的兼容性导入
+        "skipLibCheck": true,                   // 跳过库文件的类型检查
+        "noImplicitAny": true,                  // 允许隐式的 any 类型
+        "baseUrl": ".",                         // 解析非相对模块的基础地址为当前目录
+        "paths": {
+            "@/*": ["src/*"]              // 设置路径映射，`@/` 指向 `./modules/` 目录
+        }
+    },
+    "include": ["src/**/*.ts"],
+    "exclude": ["node_modules", "tests", "logs"]
+}
