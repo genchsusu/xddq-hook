@@ -9,5 +9,4 @@ export default async () => {
     await new Server().listen(1234);
 
     await Consumer();
-    logger.info("✌️ Consumer loaded!");
 };

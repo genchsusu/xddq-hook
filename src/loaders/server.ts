@@ -36,7 +36,6 @@ class Server {
     public listen(port: number): void {
         this.server.listen(port, () => {
             this.logger.info(`✌️ Start the server, listening on port ${port}`);
-            this.logger.info(`✌️ Server loaded!`);
         });
     }
 

@@ -10,9 +10,7 @@ export default async () => {
         Container.set("messageQueue", new Queue<string>());
 
         const protobufMgr = ProtobufMgr.instance;
-        logger.info("Initializing ProtobufMgr...");
         await protobufMgr.initAllMsgData();
-        logger.info("ProtobufMgr initialized successfully!");
         Container.set("protobufMgr", protobufMgr);
 
         logger.info("✌️ Dependency injector loaded!");
