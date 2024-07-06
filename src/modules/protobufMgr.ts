@@ -23,6 +23,8 @@ class ProtobufMgr {
     private messages: Messages;
     private msgInfoDict: MsgInfo;
     private initialized: boolean;
+    private basePath: string;
+    private protoPath: string;
 
     private constructor() {
         this.cmdList = {};
@@ -30,6 +32,8 @@ class ProtobufMgr {
         this.messages = {};
         this.msgInfoDict = {};
         this.initialized = false;
+        this.basePath = resolvePath("../models/json");
+        this.protoPath = resolvePath("../models/protobuf");
     }
 
     static get instance(): ProtobufMgr {
@@ -45,13 +49,11 @@ class ProtobufMgr {
         }
         this.initialized = true; // Set the flag to true
 
-        const basePath = resolvePath("../models/json");
-
         // 读取Json文件
         const [cityMsgInfoRes, cmdListRes, resvCmdListRes] = await Promise.all([
-            fs.readFile(path.join(basePath, "CityMsgInfo"), "utf-8"),
-            fs.readFile(path.join(basePath, "cmdList.json"), "utf-8"),
-            fs.readFile(path.join(basePath, "resvCmdList.json"), "utf-8"),
+            fs.readFile(path.join(this.basePath, "CityMsgInfo"), "utf-8"),
+            fs.readFile(path.join(this.basePath, "cmdList.json"), "utf-8"),
+            fs.readFile(path.join(this.basePath, "resvCmdList.json"), "utf-8"),
         ]);
         const msgInfo = JSON.parse(cityMsgInfoRes);
         this.msgInfoDict = msgInfo;
@@ -68,98 +70,13 @@ class ProtobufMgr {
         }
 
         // 依次读取多个 proto 文件并加载到 messages 中
-        const protoFiles = [
-            "Common",
-            "MountainSea",
-            "WatchPlayer",
-            "Login",
-            "PlayerData",
-            "PlayerSystem",
-            "SdkReward",
-            "Attribute",
-            "Bag",
-            "Battle",
-            "Stage",
-            "Invade",
-            "Task",
-            "Mail",
-            "RedPoint",
-            "UnionBounty",
-            "Mall",
-            "Recharge",
-            "ActivityBase",
-            "Cloud",
-            "CloudRefine",
-            "WildBoss",
-            "Pet",
-            "WorldMessage",
-            "Tower",
-            "Rank",
-            "Talent",
-            "Spirit",
-            "PrivilegeCard",
-            "BallGVG",
-            "Homeland",
-            "PlayerChara",
-            "Palace",
-            "RankBattle",
-            "FundsActivity",
-            "Union",
-            "Destiny",
-            "LuckyDrawActivity",
-            "ADTimeActivity",
-            "UnionAreaWar",
-            "SpiritTrialActivity",
-            "OptionalGiftActivity",
-            "WelfareGiftActivity",
-            "WeekCardActivity",
-            "GoodFortuneActivity",
-            "InviteFriends",
-            "MessageSubscribe",
-            "AdReward",
-            "CutPrice",
-            "HeroRank",
-            "PetDreamLandActivityProto",
-            "Magic",
-            "WildZoneActivityProto",
-            "UnionBattle",
-            "EquipmentAdvance",
-            "SecretTower",
-            "UnionBoss",
-            "MagicTreasure",
-            "MallShield",
-            "SeekTreasure",
-            "WestTravel",
-            "AskWay",
-            "ForbiddenTrials",
-            "StarTrial",
-            "GatherEnergy",
-            "GodIsland",
-            "UnionFight",
-            "PigEscape",
-            "GoodsShield",
-            "SystemShield",
-            "MiniGames",
-            "HolidayPresent",
-            "ADGiftActivity",
-            "Mark",
-            "WorldRule",
-            "PackagesBase",
-            "SignInFundActivity",
-            "ActivitysShield",
-            "UnionBlessing",
-            "FirstRechargeActivity",
-            "NewYearRedBag",
-            "FestivalCelebrations",
-            "PetKernel",
-            "GodDemonBattle",
-        ];
+        const protoFiles = await fs.readdir(this.protoPath);
 
         await Promise.all(protoFiles.map((protoName) => this.loadParseAllCmdMsg(protoName)));
     }
 
     async loadParseAllCmdMsg(protoName: string): Promise<void> {
-        const root = await protobuf.load(resolvePath(`../models/protobuf/${protoName}`));
+        const root = await protobuf.load(path.join(this.protoPath, protoName));
         const msgInfo = this.msgInfoDict[protoName];
 
         for (const key in msgInfo) {
